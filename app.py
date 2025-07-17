@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
+import os
 
 app = Flask(__name__)
+port = int(os.environ.get("PORT", 5000))  # default 5000 for local testing
 
 def ecrypter(text):
     letters = "abcdefghijklmnopqrstuvwxyz"
