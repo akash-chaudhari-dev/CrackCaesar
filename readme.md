@@ -88,15 +88,7 @@ Then open your browser at `http://127.0.0.1:5000/`.
 * Add dark mode toggle
 * Add encryption mode (reverse functionality)
 
----
-
-## 📄 License
-
-MIT License © 2025 \[Your Name]
-
-```
 
 ---
 
-Let me know your repo name and GitHub username so I can plug it into the clone URL. Or if you want a dark README aesthetic with badges and visuals, I’ll style that too.
-```
+> Made with 💻 by Akash Chaudhari
