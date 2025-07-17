@@ -35,8 +35,6 @@ CrackCaesar is a lightweight web interface that takes a Caesar-encrypted message
 ├── app.py            # Main Flask app
 ├── templates/
 │   └── index.html    # Web frontend
-├── static/
-│   └── style.css     # Optional styling
 └── README.md
 
 ````
@@ -48,15 +46,15 @@ CrackCaesar is a lightweight web interface that takes a Caesar-encrypted message
 1. **Clone the Repo**
 
 ```bash
-git clone https://github.com/<your-username>/CrackCaesar.git
+git clone https://github.com/akash1512485/CrackCaesar
 cd CrackCaesar
 ````
 
 2. **Create a Virtual Environment**
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 3. **Install Dependencies**
