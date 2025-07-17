@@ -1,86 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Processor</title>
+    <title>Caesar Cipher Converter</title>
     <!-- Favicon (using a lock icon for branding) -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'%3E%3Cpath d='M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 0c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm5 11H7v-8h10v8z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007bff'%3E%3Cpath d='M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 0c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm5 11H7v-8h10v8z'/%3E%3C/svg%3E"
+        type="image/svg+xml">
     <style>
         /* Light Mode Variables (Default) */
         :root {
-            /* Backgrounds */
-            --bg-primary: #f8f9fa;        /* Very light gray */
-            --bg-secondary: #ffffff;      /* White */
-
-            /* Text */
-            --text-primary: #212529;      /* Dark gray for main text */
-            --text-secondary: #6c757d;    /* Muted gray for secondary text */
-            --heading-color: #1f2d3d;     /* Deep slate for headings */
-
-            /* Borders */
-            --border-color: #dee2e6;      /* Subtle gray for borders */
-
-            /* Inputs */
-            --input-focus-color: #3f51b5;     /* Indigo */
-            --input-focus-shadow: rgba(63, 81, 181, 0.3); /* Matching indigo shadow */
-
-            /* Output Box */
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --heading-color: #1f2d3d;
+            --border-color: #dee2e6;
+            --input-focus-color: #3f51b5;
+            --input-focus-shadow: rgba(63, 81, 181, 0.3);
             --output-bg: #fefefe;
             --output-border: #dcdcdc;
-            --output-code-bg: #f1f3f5;         /* Light gray-blue */
-            --output-code-text: #343a40;       /* Dark text for code blocks */
-
-            /* Submit Button */
-            --submit-button-bg: #3f51b5;       /* Indigo */
-            --submit-button-hover-bg: #303f9f; /* Darker indigo on hover */
-
-            /* Accent / Links */
-            --accent-color: #3f51b5;       /* Indigo */
-
-            /* Toggle Switch (for theme or UI toggles) */
-            --toggle-bg: #adb5bd;              /* Gray background */
-            --toggle-circle-bg: white;         /* White circle for switch */
-
-            /* LinkedIn Badge */
-            --linkedin-badge-bg: #0077B5; /* LinkedIn blue */
-            --linkedin-badge-hover-bg: #005582;
-            --linkedin-badge-text: white;
-            --linkedin-badge-shadow: rgba(0, 119, 181, 0.3);
+            --output-code-bg: #f1f3f5;
+            --output-code-text: #343a40;
+            --submit-button-bg: #3f51b5;
+            --submit-button-hover-bg: #303f9f;
+            --accent-color: #3f51b5;
+            --toggle-bg: #adb5bd;
+            --toggle-circle-bg: white;
+            --linkedin-bar-bg: #f3f3f3;
+            --linkedin-bar-text: #333;
+            --linkedin-bar-link: #0A66C2;
+            --linkedin-bar-link-hover: #004182;
+            --linkedin-bar-border: #ccc;
         }
 
         /* Dark Mode Variables */
         body.dark-mode {
-            --bg-primary: #121212;             /* Darker background for overall page */
-            --bg-secondary: #1e1e1e;           /* Slightly lighter sections/cards */
-            --text-primary: #e0e0e0;           /* Main text color */
-            --text-secondary: #9ca3af;         /* Subtext color */
-            --border-color: #3f3f46;           /* Soft gray border */
-            --input-focus-color: #7c3aed;      /* Focus purple */
-            --input-focus-shadow: rgba(124, 58, 237, 0.35); /* Soft purple glow */
-            --heading-color: #c084fc;          /* Soft lilac heading */
-            --output-bg: #1a1a2e;              /* Code output background */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #9ca3af;
+            --heading-color: #c084fc;
+            --border-color: #3f3f46;
+            --input-focus-color: #7c3aed;
+            --input-focus-shadow: rgba(124, 58, 237, 0.35);
+            --output-bg: #1a1a2e;
             --output-border: #2d2d44;
             --output-code-bg: #2c2c3c;
             --output-code-text: #f3f4f6;
-            
-            /* Submit Button - Violet/Purple */
-            --submit-button-bg: #7c3aed;       /* Vivid violet */
-            --submit-button-hover-bg: #6d28d9; /* Slightly darker on hover */
-
-            --accent-color: #3b82f6;           /* Blue accents for links or icons */
-
-            /* Theme toggle specific */
+            --submit-button-bg: #7c3aed;
+            --submit-button-hover-bg: #6d28d9;
+            --accent-color: #3b82f6;
             --toggle-bg: #2a2a2a;
             --toggle-circle-bg: #d1d5db;
-
-            /* LinkedIn Badge */
-            --linkedin-badge-bg: #0a66c2; /* Darker LinkedIn blue for dark mode */
-            --linkedin-badge-hover-bg: #004182;
-            --linkedin-badge-text: white;
-            --linkedin-badge-shadow: rgba(10, 102, 194, 0.3);
+            --linkedin-bar-bg: #2a2a2a;
+            --linkedin-bar-text: #e0e0e0;
+            --linkedin-bar-link: #3b82f6;
+            --linkedin-bar-link-hover: #1e6bb8;
+            --linkedin-bar-border: #3f3f46;
         }
-
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -95,7 +75,7 @@
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -107,7 +87,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative; /* For toggle button positioning */
+            position: relative;
         }
 
         h1 {
@@ -132,10 +112,11 @@
             border-radius: 6px;
             font-family: inherit;
             font-size: 1rem;
-            background-color: var(--bg-primary); /* Use primary background for textarea */
+            background-color: var(--bg-primary);
             color: var(--text-primary);
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
         }
+
         textarea:focus {
             outline: none;
             border-color: var(--input-focus-color);
@@ -152,7 +133,7 @@
         }
 
         input[type="submit"] {
-            background: var(--submit-button-bg); /* Use variable for button color */
+            background: var(--submit-button-bg);
             color: white;
             border: none;
             padding: 12px 25px;
@@ -164,10 +145,12 @@
             width: 100%;
             box-sizing: border-box;
         }
+
         input[type="submit"]:hover {
             background: var(--submit-button-hover-bg);
             transform: translateY(-1px);
         }
+
         input[type="submit"]:active {
             transform: translateY(0);
         }
@@ -183,7 +166,7 @@
             padding: 15px;
             border-radius: 6px;
             background: var(--output-bg);
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -196,9 +179,10 @@
         .output-list li {
             margin-bottom: 15px;
             padding-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color); /* Use border color variable */
+            border-bottom: 1px dashed var(--border-color);
             transition: border-color 0.3s ease;
         }
+
         .output-list li:last-child {
             margin-bottom: 0;
             padding-bottom: 0;
@@ -206,7 +190,7 @@
         }
 
         .output-list li strong {
-            color: var(--accent-color); /* Highlight key number with accent color */
+            color: var(--accent-color);
             display: block;
             margin-bottom: 5px;
             font-size: 1.05rem;
@@ -230,151 +214,194 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            width: 50px; /* Width of the switch */
-            height: 26px; /* Height of the switch */
+            width: 50px;
+            height: 26px;
             background: var(--toggle-bg);
-            border-radius: 13px; /* Half of height for rounded ends */
+            border-radius: 13px;
             position: absolute;
             cursor: pointer;
             border: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: background 0.3s ease, box-shadow 0.3s ease;
-            -webkit-appearance: none; /* Remove default button styles */
+            -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            padding: 0; /* Remove default padding */
+            padding: 0;
         }
 
         .theme-icon {
-            width: 22px; /* Size of the circular 'thumb' */
+            width: 22px;
             height: 22px;
             background: var(--toggle-circle-bg);
             border-radius: 50%;
             position: absolute;
-            top: 2px; /* Center vertically within the track */
-            left: 2px; /* Initial position for light mode */
+            top: 2px;
+            left: 2px;
             transition: left 0.3s ease, background 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Shadow for the thumb */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode #theme-toggle {
-            background: var(--toggle-bg); /* Darker background for dark mode switch */
+            background: var(--toggle-bg);
         }
 
         body.dark-mode .theme-icon {
-            left: 26px; /* Move to the right for dark mode */
-            background: var(--toggle-circle-bg); /* Lighter circle for dark mode */
+            left: 26px;
+            background: var(--toggle-circle-bg);
         }
 
-        /* Floating LinkedIn Badge */
-        .linkedin-float {
-            position: fixed; /* Fixed position relative to viewport */
-            bottom: 20px; /* 20px from the bottom */
-            right: 20px; /* 20px from the right */
-            text-decoration: none; /* Remove underline for anchor tag */
-            z-index: 1000; /* Ensure it stays on top */
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .linkedin-badge {
-            background-color: var(--linkedin-badge-bg);
-            color: var(--linkedin-badge-text);
-            padding: 10px 15px; /* Adjust padding for a compact badge */
-            border-radius: 30px; /* Highly rounded corners for a pill shape */
+        /* Floating LinkedIn Bar */
+        .linkedin-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--linkedin-bar-bg);
+            color: var(--linkedin-bar-text);
+            font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 10px; /* Space between text and icon */
-            box-shadow: 0 4px 10px var(--linkedin-badge-shadow);
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            gap: 8px;
+            padding: 8px 15px;
+            /* Adjusted padding for better look */
+            border-radius: 30px;
+            /* Pill shape */
+            border: 1px solid var(--linkedin-bar-border);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow */
+            z-index: 999;
+            /* Ensure it's above other content but below theme toggle */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
         }
 
-        .linkedin-float:hover .linkedin-badge {
-            background-color: var(--linkedin-badge-hover-bg);
-            box-shadow: 0 6px 15px var(--linkedin-badge-shadow);
-            transform: translateY(-2px); /* Slight lift on hover */
+        .linkedin-bar:hover {
+            transform: translateY(-3px);
+            /* Slight lift on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .linkedin-text {
-            font-size: 0.9rem; /* Smaller font for text */
-            line-height: 1.3;
-            white-space: nowrap; /* Prevent text from wrapping */
-            font-weight: 500;
+        .linkedin-bar span {
+            white-space: nowrap;
+            /* Keep text on one line */
         }
 
-        .linkedin-text strong {
-            font-weight: 700;
-        }
-
-        .linkedin-icon {
-            flex-shrink: 0; /* Prevent icon from shrinking */
+        .linkedin-bar a {
+            text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            /* The SVG itself should be sized by its width/height attributes */
+            color: var(--linkedin-bar-link);
+            /* Link color */
+            transition: color 0.2s ease;
         }
 
-        /* Ensure SVG within .linkedin-icon is not distorted */
-        .linkedin-icon svg {
-            width: 24px; /* Set explicit width */
-            height: 24px; /* Set explicit height */
-            fill: currentColor; /* Inherit color from parent */
-            display: block; /* Remove extra space below SVG */
+        .linkedin-bar a:hover {
+            color: var(--linkedin-bar-link-hover);
         }
 
+        .linkedin-bar svg {
+            width: 24px;
+            /* Standard size for icon */
+            height: 24px;
+            fill: currentColor;
+            /* Inherit color from parent link */
+            display: block;
+            /* Remove extra space below SVG */
+        }
+
+        /* Support the Maker Section */
+        .support-maker {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .support-maker a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-maker a:hover {
+            text-decoration: underline;
+        }
+
+        .bottom-spacer {
+            height: 80px;
+            /* Space for the floating LinkedIn bar */
+        }
 
         /* Responsive adjustments */
         @media (max-width: 600px) {
             body {
                 padding: 10px;
             }
+
+            .bottom-spacer {
+                height: 60px;
+            }
+
             .container {
                 padding: 20px;
             }
+
             h1 {
                 font-size: 1.5rem;
                 margin-bottom: 20px;
             }
+
             textarea {
                 min-height: 100px;
             }
+
             input[type="submit"] {
                 padding: 10px 20px;
                 font-size: 1rem;
             }
+
             #theme-toggle {
                 top: 10px;
                 right: 10px;
-                width: 45px; /* Slightly smaller toggle for mobile */
+                width: 45px;
                 height: 22px;
                 border-radius: 11px;
             }
+
             .theme-icon {
                 width: 18px;
                 height: 18px;
                 top: 2px;
                 left: 2px;
             }
+
             body.dark-mode .theme-icon {
-                left: 25px; /* Adjusted for smaller toggle width */
+                left: 25px;
             }
-            .linkedin-float {
+
+            .linkedin-bar {
                 bottom: 15px;
                 right: 15px;
+                padding: 6px 12px;
+                /* Smaller padding on mobile */
+                font-size: 12px;
+                /* Smaller font on mobile */
+                gap: 6px;
+                /* Smaller gap */
             }
-            .linkedin-badge {
-                padding: 8px 12px; /* Smaller padding for mobile badge */
-                gap: 8px; /* Smaller gap */
-            }
-            .linkedin-text {
-                font-size: 0.8rem; /* Smaller text on mobile */
-            }
-            .linkedin-icon svg {
-                width: 20px; /* Smaller icon on mobile */
+
+            .linkedin-bar svg {
+                width: 20px;
+                /* Smaller icon on mobile */
                 height: 20px;
+            }
+
+            .bottom-spacer {
+                height: 60px;
+                /* Adjust spacer for mobile */
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Dark Mode Toggle Button -->
@@ -383,78 +410,55 @@
         </button>
 
         <h1>Caesar Cipher to Plaintext Converter</h1>
-        
+
         <form method="POST">
-            <textarea 
-                name="user_text" 
-                rows="8" 
-                placeholder="Type or paste your text here..." 
-                required></textarea>
+            <textarea name="user_text" rows="8" placeholder="Type or paste your text here..." required></textarea>
             <div id="charCount">0 characters</div>
             <input type="submit" value="Process Text">
         </form>
 
         {% if processed_texts %}
-            <div class="output-section">
-                <h2>All Possible Outputs (Key 1 to 25):</h2>
-                <div class="output-list-container">
-                    <ul class="output-list">
+        <div class="output-section">
+            <h2>All Possible Outputs (Key 1 to 25):</h2>
+            <div class="output-list-container">
+                <ul class="output-list">
                     {% for key, text in processed_texts %}
-                        <li>
-                            <strong>Key {{ key }}:</strong>
-                            <pre>{{ text }}</pre>
-                        </li>
+                    <li>
+                        <strong>Key {{ key }}:</strong>
+                        <pre>{{ text }}</pre>
+                    </li>
                     {% endfor %}
-                    </ul>
-                </div>
+                </ul>
             </div>
+        </div>
         {% endif %}
+
+        <!-- Support the Maker Section (inside container to be part of main flow) -->
+        <div class="support-maker">
+            ❤️ Support the maker:
+            <a href="https://razorpay.me/@pycraftr" target="_blank" rel="noopener noreferrer">
+                Buy me a coffee on Razorpay
+            </a>
+        </div>
+        <div class="bottom-spacer"></div>
     </div>
 
-    <!-- Floating LinkedIn Bar -->
-<div class="linkedin-bar">
-  <span>This project is by <strong>Akash Chaudhari</strong></span>
-  <a href="https://www.linkedin.com/in/akash-ch/" target="_blank" aria-label="Connect on LinkedIn">
-    <!-- LinkedIn Icon -->
-   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
-<path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 14 11.011719 C 12.904779 11.011719 11.919219 11.339079 11.189453 11.953125 C 10.459687 12.567171 10.011719 13.484511 10.011719 14.466797 C 10.011719 16.333977 11.631285 17.789609 13.691406 17.933594 A 0.98809878 0.98809878 0 0 0 13.695312 17.935547 A 0.98809878 0.98809878 0 0 0 14 17.988281 C 16.27301 17.988281 17.988281 16.396083 17.988281 14.466797 A 0.98809878 0.98809878 0 0 0 17.986328 14.414062 C 17.884577 12.513831 16.190443 11.011719 14 11.011719 z M 14 12.988281 C 15.392231 12.988281 15.94197 13.610038 16.001953 14.492188 C 15.989803 15.348434 15.460091 16.011719 14 16.011719 C 12.614594 16.011719 11.988281 15.302225 11.988281 14.466797 C 11.988281 14.049083 12.140703 13.734298 12.460938 13.464844 C 12.78117 13.19539 13.295221 12.988281 14 12.988281 z M 11 19 A 1.0001 1.0001 0 0 0 10 20 L 10 39 A 1.0001 1.0001 0 0 0 11 40 L 17 40 A 1.0001 1.0001 0 0 0 18 39 L 18 33.134766 L 18 20 A 1.0001 1.0001 0 0 0 17 19 L 11 19 z M 20 19 A 1.0001 1.0001 0 0 0 19 20 L 19 39 A 1.0001 1.0001 0 0 0 20 40 L 26 40 A 1.0001 1.0001 0 0 0 27 39 L 27 29 C 27 28.170333 27.226394 27.345035 27.625 26.804688 C 28.023606 26.264339 28.526466 25.940057 29.482422 25.957031 C 30.468166 25.973981 30.989999 26.311669 31.384766 26.841797 C 31.779532 27.371924 32 28.166667 32 29 L 32 39 A 1.0001 1.0001 0 0 0 33 40 L 39 40 A 1.0001 1.0001 0 0 0 40 39 L 40 28.261719 C 40 25.300181 39.122788 22.95433 37.619141 21.367188 C 36.115493 19.780044 34.024172 19 31.8125 19 C 29.710483 19 28.110853 19.704889 27 20.423828 L 27 20 A 1.0001 1.0001 0 0 0 26 19 L 20 19 z M 12 21 L 16 21 L 16 33.134766 L 16 38 L 12 38 L 12 21 z M 21 21 L 25 21 L 25 22.560547 A 1.0001 1.0001 0 0 0 26.798828 23.162109 C 26.798828 23.162109 28.369194 21 31.8125 21 C 33.565828 21 35.069366 21.582581 36.167969 22.742188 C 37.266572 23.901794 38 25.688257 38 28.261719 L 38 38 L 34 38 L 34 29 C 34 27.833333 33.720468 26.627107 32.990234 25.646484 C 32.260001 24.665862 31.031834 23.983076 29.517578 23.957031 C 27.995534 23.930001 26.747519 24.626988 26.015625 25.619141 C 25.283731 26.611293 25 27.829667 25 29 L 25 38 L 21 38 L 21 21 z"></path>
-</svg>
-    </svg>
-  </a>
-</div>
-
-<style>
-  .linkedin-bar {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    background-color: #f3f3f3;
-    color: #333;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    z-index: 999;
-  }
-
-  .linkedin-bar a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    color: #0A66C2;
-  }
-
-  .linkedin-bar a:hover {
-    color: #004182;
-  }
-</style>
-
+    <!-- Floating LinkedIn Bar (outside container to be fixed) -->
+    <div class="linkedin-bar">
+        <span>This project is by <strong>Akash Chaudhari</strong></span>
+        <a href="https://www.linkedin.com/in/akash-chaudhari-31034421b/" target="_blank"
+            aria-label="Connect on LinkedIn">
+            <!-- LinkedIn Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                <path
+                    d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 41 6 C 42.668484 6 44 7.3315161 44 9 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 14 11.011719 C 12.904779 11.011719 11.919219 11.339079 11.189453 11.953125 C 10.459687 12.567171 10.011719 13.484511 10.011719 14.466797 C 10.011719 16.333977 11.631285 17.789609 13.691406 17.933594 A 0.98809878 0.98809878 0 0 0 13.695312 17.935547 A 0.98809878 0.98809878 0 0 0 14 17.988281 C 16.27301 17.988281 17.988281 16.396083 17.988281 14.466797 A 0.98809878 0.98809878 0 0 0 17.986328 14.414062 C 17.884577 12.513831 16.190443 11.011719 14 11.011719 z M 14 12.988281 C 15.392231 12.988281 15.94197 13.610038 16.001953 14.492188 C 15.989803 15.348434 15.460091 16.011719 14 16.011719 C 12.614594 16.011719 11.988281 15.302225 11.988281 14.466797 C 11.988281 14.049083 12.140703 13.734298 12.460938 13.464844 C 12.78117 13.19539 13.295221 12.988281 14 12.988281 z M 11 19 A 1.0001 1.0001 0 0 0 10 20 L 10 39 A 1.0001 1.0001 0 0 0 11 40 L 17 40 A 1.0001 1.0001 0 0 0 18 39 L 18 33.134766 L 18 20 A 1.0001 1.0001 0 0 0 17 19 L 11 19 z M 20 19 A 1.0001 1.0001 0 0 0 19 20 L 19 39 A 1.0001 1.0001 0 0 0 20 40 L 26 40 A 1.0001 1.0001 0 0 0 27 39 L 27 29 C 27 28.170333 27.226394 27.345035 27.625 26.804688 C 28.023606 26.264339 28.526466 25.940057 29.482422 25.957031 C 30.468166 25.973981 30.989999 26.311669 31.384766 26.841797 C 31.779532 27.371924 32 28.166667 32 29 L 32 39 A 1.0001 1.0001 0 0 0 33 40 L 39 40 A 1.0001 1.0001 0 0 0 40 39 L 40 28.261719 C 40 25.300181 39.122788 22.95433 37.619141 21.367188 C 36.115493 19.780044 34.024172 19 31.8125 19 C 29.710483 19 28.110853 19.704889 27 20.423828 L 27 20 A 1.0001 1.0001 0 0 0 26 19 L 20 19 z M 12 21 L 16 21 L 16 33.134766 L 16 38 L 12 38 L 12 21 z M 21 21 L 25 21 L 25 22.560547 A 1.0001 1.0001 0 0 0 26.798828 23.162109 C 26.798828 23.162109 28.369194 21 31.8125 21 C 33.565828 21 35.069366 21.582581 36.167969 22.742188 C 37.266572 23.901794 38 25.688257 38 28.261719 L 38 38 L 34 38 L 34 29 C 34 27.833333 33.720468 26.627107 32.990234 25.646484 C 32.260001 24.665862 31.031834 23.983076 29.517578 23.957031 C 27.995534 23.930001 26.747519 24.626988 26.015625 25.619141 C 25.283731 26.611293 25 27.829667 25 29 L 25 38 L 21 38 L 21 21 z">
+                </path>
+            </svg>
+        </a>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const textarea = document.querySelector('textarea[name="user_text"]');
             const charCountDiv = document.getElementById('charCount');
             const themeToggleButton = document.getElementById('theme-toggle');
@@ -500,7 +504,7 @@
             });
 
             // Toggle theme on button click
-            themeToggleButton.addEventListener('click', function() {
+            themeToggleButton.addEventListener('click', function () {
                 if (document.body.classList.contains('dark-mode')) {
                     setTheme('light');
                 } else {
@@ -510,4 +514,5 @@
         });
     </script>
 </body>
+
 </html>
