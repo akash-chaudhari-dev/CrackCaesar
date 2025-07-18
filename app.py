@@ -4,19 +4,19 @@ import os
 app = Flask(__name__)
 port = int(os.environ.get("PORT", 5000))  # default 5000 for local testing
 
-def ecrypter(text):
+def decrypter(text):
     letters = "abcdefghijklmnopqrstuvwxyz"
     results = []
 
-    for key in range(1, 26):  # Changed from 0-25 to 1-25
-        encrypted_text = ""
+    for key in range(1, 26):  # Try all possible shifts (1-25)
+        decrypted_text = ""
         for char in text.lower():
             if char in letters:
-                index = (letters.index(char) + key) % 26
-                encrypted_text += letters[index]
+                index = (letters.index(char) - key) % 26  # Note the minus sign for decryption
+                decrypted_text += letters[index]
             else:
-                encrypted_text += char  # Keep spaces, punctuation, numbers etc.
-        results.append((key, encrypted_text))
+                decrypted_text += char
+        results.append((key, decrypted_text))
 
     return results
 
@@ -26,7 +26,7 @@ def index():
 
     if request.method == 'POST':
         user_text = request.form['user_text']
-        processed_texts = ecrypter(user_text)
+        processed_texts = decrypter(user_text)
 
     return render_template('index.html', processed_texts=processed_texts)
 
