@@ -8,7 +8,7 @@ def ecrypter(text):
     letters = "abcdefghijklmnopqrstuvwxyz"
     results = []
 
-    for key in range(0, 26):  # 1 to 25
+    for key in range(1, 26):  # Changed from 0-25 to 1-25
         encrypted_text = ""
         for char in text.lower():
             if char in letters:
