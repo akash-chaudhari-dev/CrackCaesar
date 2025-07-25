@@ -1,4 +1,6 @@
+[![Render](https://img.shields.io/badge/Hosted%20on-Render-blue)](https://crackcaesar.onrender.com/)
 # CrackCaesar
+
 
 > A minimal Flask web app to decode Caesar cipher messages into plaintext.
 
