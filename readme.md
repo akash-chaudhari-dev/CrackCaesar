@@ -1,4 +1,6 @@
 [![Render](https://img.shields.io/badge/Hosted%20on-Render-blue)](https://crackcaesar.onrender.com/)
+[![Last commit](https://img.shields.io/github/last-commit/akash-chaudhari-dev/CrackCaesar)](https://github.com/akash-chaudhari-dev/CrackCaesar/commits/main)
+
 # CrackCaesar
 
 
